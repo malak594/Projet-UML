@@ -1,2 +1,2 @@
 # Projet-UML
-projet fait par : El ghazi Malak , Kaoutar Manoui , Sara Benabdellah , Asmae Bousselek
+projet fait par : El ghazi Malak , Kaoutar Mennioui, Sara Benabdellah , Asmae Bousselek
