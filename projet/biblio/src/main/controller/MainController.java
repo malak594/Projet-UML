@@ -82,6 +82,5 @@ public class MainController {
 
     public void fermerApplication() {
         DatabaseConnection.close();
-        biblio.util.Logger.log("Application fermée", "SYSTEM");
     }
 }
