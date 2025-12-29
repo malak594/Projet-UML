@@ -21,16 +21,13 @@ public class DatabaseConnection {
                 connection.setAutoCommit(true);
                 
                 System.out.println("Connexion à la base de données établie.");
-                Logger.log("Connexion à la base de données établie", "SYSTEM");
                 
                 // Créer les tables si elles n'existent pas
                 createTables();
                 
             } catch (ClassNotFoundException e) {
-                Logger.logError("Driver SQLite non trouvé", "SYSTEM", e);
                 System.err.println("ERREUR: Driver SQLite non trouvé. Ajoutez sqlite-jdbc à votre classpath.");
             } catch (SQLException e) {
-                Logger.logError("Erreur de connexion à la base de données", "SYSTEM", e);
                 System.err.println("ERREUR: Impossible de se connecter à la base de données: " + e.getMessage());
             }
         }
@@ -98,10 +95,8 @@ public class DatabaseConnection {
                 stmt.execute(sql);
             }
             System.out.println("Tables créées ou déjà existantes.");
-            Logger.log("Structure de la base de données vérifiée/créée", "SYSTEM");
             
         } catch (SQLException e) {
-            Logger.logError("Erreur lors de la création des tables", "SYSTEM", e);
             System.err.println("ERREUR lors de la création des tables: " + e.getMessage());
         }
     }
@@ -112,9 +107,7 @@ public class DatabaseConnection {
                 connection.close();
                 connection = null;
                 System.out.println("Connexion à la base de données fermée.");
-                Logger.log("Connexion à la base de données fermée", "SYSTEM");
             } catch (SQLException e) {
-                Logger.logError("Erreur lors de la fermeture de la connexion", "SYSTEM", e);
                 System.err.println("ERREUR lors de la fermeture de la connexion: " + e.getMessage());
             }
         }
@@ -137,23 +130,20 @@ public class DatabaseConnection {
                 
                 createTables();
                 
-                Logger.log("Sauvegarde de la base de données créée: " + backupPath, "SYSTEM");
                 
             } finally {
                 backupConn.close();
             }
             
         } catch (SQLException e) {
-            Logger.logError("Erreur lors de la sauvegarde de la base de données", "SYSTEM", e);
+        	e.getStackTrace();
         }
     }
     
     public static void executeRawSQL(String sql) {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
-            Logger.log("Requête SQL exécutée: " + sql, "SYSTEM");
         } catch (SQLException e) {
-            Logger.logError("Erreur lors de l'exécution de la requête SQL", "SYSTEM", e);
-        }
+        	e.getStackTrace();        }
     }
 }
