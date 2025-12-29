@@ -27,7 +27,6 @@ public class LivreController {
         }
 
         livreDAO.ajouter(livre);
-        biblio.util.Logger.log("Ajout livre: " + livre.getIsbn(), "ADMIN");
         return true;
     }
 
@@ -42,7 +41,6 @@ public class LivreController {
         }
 
         livreDAO.modifier(livre);
-        biblio.util.Logger.log("Modification livre: " + livre.getIsbn(), "ADMIN");
         return true;
     }
 
@@ -58,7 +56,6 @@ public class LivreController {
         }
 
         livreDAO.supprimer(isbn);
-        biblio.util.Logger.log("Suppression livre: " + isbn, "ADMIN");
         return true;
     }
 
@@ -119,7 +116,6 @@ public class LivreController {
                 compteur++;
             }
         }
-        biblio.util.Logger.log("Import CSV: " + compteur + " livres importés", "ADMIN");
         return compteur;
     }
 }
