@@ -24,25 +24,25 @@ public class AdherentController {
             return false;
         }
 
-        // Vérifier si l'email existe déjà
+     
         if (adherentDAO.existeEmail(adherent.getEmail())) {
             return false;
         }
 
         adherentDAO.ajouter(adherent);
         
-        // Créer automatiquement un compte utilisateur pour l'adhérent
+
         creerCompteUtilisateurPourAdherent(adherent);
         
-        biblio.util.Logger.log("Ajout adhérent: " + adherent.getEmail(), "ADMIN");
+        
         return true;
     }
   
   
     private void creerCompteUtilisateurPourAdherent(Adherent adherent) {
-        // Générer un login à partir de l'email
+      
         String login = adherent.getEmail();
-        String motDePasse = "password123"; // Mot de passe par défaut
+        String motDePasse = "password123"; 
         String hash = PasswordHasher.hash(motDePasse);
         
         Utilisateur utilisateur = new Utilisateur(login, hash, adherent);
@@ -62,14 +62,13 @@ public class AdherentController {
             return false;
         }
 
-        // Vérifier si l'email a changé et s'il est unique
+        
         if (!existant.getEmail().equals(adherent.getEmail()) && 
             adherentDAO.existeEmail(adherent.getEmail())) {
             return false;
         }
 
         adherentDAO.modifier(adherent);
-        biblio.util.Logger.log("Modification adhérent ID: " + adherent.getId(), "ADMIN");
         return true;
     }
 
@@ -79,19 +78,18 @@ public class AdherentController {
             return false;
         }
 
-        // Vérifier si l'adhérent a des emprunts actifs
+      
         if (adherent.getNbEmpruntsActuels() > 0) {
             return false;
         }
 
-        // Supprimer le compte utilisateur associé
+        
         Utilisateur utilisateur = utilisateurDAO.trouverParLogin(adherent.getEmail());
         if (utilisateur != null) {
             utilisateurDAO.supprimer(utilisateur.getLogin());
         }
 
         adherentDAO.supprimer(id);
-        biblio.util.Logger.log("Suppression adhérent ID: " + id, "ADMIN");
         return true;
     }
 
@@ -117,8 +115,7 @@ public class AdherentController {
 
   
     public boolean aRetardImportant(int adherentId) {
-        // Cette méthode devrait vérifier les emprunts en retard
-        // Pour simplifier, on vérifie juste le statut bloqué
+       
         Adherent adherent = adherentDAO.trouverParId(adherentId);
         return adherent != null && adherent.isBloque();
     }
@@ -131,7 +128,6 @@ public class AdherentController {
 
         adherentDAO.bloquerAdherent(id, bloquer);
         String action = bloquer ? "Bloqué" : "Débloqué";
-        biblio.util.Logger.log(action + " adhérent ID: " + id, "ADMIN");
         return true;
     }
 
