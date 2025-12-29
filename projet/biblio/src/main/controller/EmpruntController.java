@@ -1,4 +1,3 @@
-package biblio.controller;
 
 
 import biblio.dao.EmpruntDAO;
@@ -52,8 +51,7 @@ public class EmpruntController {
         livreController.decrementerExemplairesDisponibles(isbn);
         adherentController.incrementerEmprunts(adherentId);
 
-        biblio.util.Logger.log("Nouvel emprunt - Adhérent: " + adherentId + ", Livre: " + isbn, 
-                       adherentController.estAdmin() ? "ADMIN" : "USER");
+        
         return true;
     }
 
@@ -98,8 +96,6 @@ public class EmpruntController {
         // Vérifier et gérer les retards
         gererRetard(emprunt);
 
-        biblio.util.Logger.log("Retour livre - Emprunt ID: " + empruntId, 
-                       adherentController.estAdmin() ? "ADMIN" : "USER");
         return true;
     }
 
@@ -108,7 +104,6 @@ public class EmpruntController {
         int joursRetard = emprunt.calculerRetard();
         if (joursRetard > 10) {
             adherentController.bloquerAdherent(emprunt.getAdherent().getId(), true);
-            biblio.util.Logger.log("Adhérent bloqué pour retard - ID: " + emprunt.getAdherent().getId(), "SYSTEM");
         }
     }
 
@@ -150,8 +145,7 @@ public class EmpruntController {
         // Prolonger de 14 jours supplémentaires
         emprunt.setDateRetourPrevue(emprunt.getDateRetourPrevue().plusDays(14));
         
-        biblio.util.Logger.log("Renouvellement emprunt ID: " + empruntId, 
-                       adherentController.estAdmin() ? "ADMIN" : "USER");
+        
         return true;
     }
 
