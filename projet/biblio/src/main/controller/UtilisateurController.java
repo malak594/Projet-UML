@@ -34,7 +34,6 @@ public class UtilisateurController {
         Utilisateur utilisateur = new Utilisateur(login, hash, role);
         utilisateurDAO.ajouter(utilisateur);
 
-        biblio.util.Logger.log("Création utilisateur: " + login, "ADMIN");
         return true;
     }
 
@@ -50,7 +49,6 @@ public class UtilisateurController {
         }
 
         utilisateurDAO.modifier(utilisateur);
-        biblio.util.Logger.log("Modification utilisateur: " + utilisateur.getLogin(), "ADMIN");
         return true;
     }
 
@@ -66,7 +64,6 @@ public class UtilisateurController {
         }
 
         utilisateurDAO.supprimer(login);
-        biblio.util.Logger.log("Suppression utilisateur: " + login, "ADMIN");
         return true;
     }
 
@@ -93,7 +90,6 @@ public class UtilisateurController {
         }
 
         String action = actif ? "Activé" : "Désactivé";
-        biblio.util.Logger.log(action + " utilisateur: " + login, "ADMIN");
         return true;
     }
 
@@ -108,7 +104,6 @@ public class UtilisateurController {
         utilisateur.setPasswordHash(hash);
         utilisateurDAO.modifier(utilisateur);
 
-        biblio.util.Logger.log("Changement mot de passe: " + login, "ADMIN");
         return true;
     }
 
@@ -122,4 +117,3 @@ public class UtilisateurController {
     }
 
   
-}
